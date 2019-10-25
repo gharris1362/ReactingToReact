@@ -33,6 +33,7 @@ class App extends Component {
     }
     
     checkLoad = () => {
+        
         if(this.state.hasLoaded === false) {
            this.state.hasLoaded = true
         console.log(this.state.hasLoaded)  
@@ -41,20 +42,30 @@ class App extends Component {
            this.state.hasLoaded = false
            console.log(this.state.hasLoaded)
        }
+       this.forceUpdate();
     }
     render() {
-        return (
+    
+        if(this.state.hasLoaded == true) {
+              return (
             <React.Fragment>
                 
                 <div id='check'>
                       <h1>Hello, {this.firstName + ' ' + this.state.text}!</h1>
                 <p>{this.state.value}</p>
                 <input placeholder={this.state.placeholder} onChange={this.handleChange.bind(this)} ></input>
-                 <button onClick={this.checkLoad}> </button>
+                 
                 </div>
               
             </React.Fragment>
         )
+        }
+      else if (this.state.hasLoaded == false) {
+          return (<div>Loading...
+              <button onClick={this.checkLoad}> </button>
+          </div>
+            )
+      }
     }
 }
 render(<App />, root)
